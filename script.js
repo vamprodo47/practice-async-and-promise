@@ -19,11 +19,45 @@ function runCallback(){
         displayTitle();
 
         delay(500, ()=>{
-            higglightTitle();
+            highlightTitle();
 
             delay(2000, resetTitle);
         });
     });
+}
+//const sleep = (wait) => {
+//   return new Promise((resolve) => {
+//     setTimeout(resolve, wait);
+// });
+// }
+function runPromise() {
+  resetTitle();
+  playVideo();
+
+  sleep(1000)
+  .then(()=>{
+    pauseVideo();
+    displayTitle();
+  })
+  .then(sleep.bind(null,500))
+  .then(highlightTitle)
+  .then(sleep.bind(null,2000))
+  .then(resetTitle)
+};
+
+async function runAsync(){
+  resetTitle();
+  playVideo();
+
+  await sleep(1000);
+  pauseVideo();
+  displayTitle();
+
+  await sleep(500);
+  highlightTitle();
+
+  await sleep(2000);
+  resetTitle();
 }
 
 function resetTitle() {
